@@ -14,7 +14,8 @@ Map::Map(int xSize, int ySize)
 {
     height = ySize;
     width = xSize;
-    Tile defaultTile = Tile(0);
+    // Create a default tile
+    Tile defaultTile = Tile();
     for (int x = 0; x < xSize; x++)
     {
         // Build the row up first

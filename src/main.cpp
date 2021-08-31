@@ -5,7 +5,7 @@
 
 int main()
 {
-    Map m = Map(10, 10);
+    Map m = Map(100, 100);
     m.print();
 
     return 0;
