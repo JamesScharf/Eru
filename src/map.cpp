@@ -73,3 +73,57 @@ void Map::print()
         cout << "\n";
     }
 }
+
+/**
+ * Applies a height value to each Tile
+ * 
+ */
+void Map::generateHeightMap()
+{
+    FastNoiseLite noise;
+    noise.SetFrequency(0.05);
+    srand(time(NULL));
+    int seed = rand() % 1000 + 1;
+    noise.SetSeed(seed);
+
+    FastNoiseLite noise2;
+    noise2.SetFrequency(0.05);
+    srand(time(NULL));
+    int seed2 = rand() % 1000 + 1;
+    noise2.SetSeed(seed);
+    for (int h = 0; h < height; h++)
+    {
+        for (int w = 0; w < width; w++)
+        {
+            float n = noise.GetNoise((float)h, (float)w);
+            float n2 = noise2.GetNoise((float)h, (float)w) / 50;
+            tileMap.at(h).at(w).setElevation(n + n2);
+        }
+    }
+}
+
+/**
+ * Generates Tile temperature based on X, Y, and elevation
+ * 
+ */
+void Map::generateTemperatureMap()
+{
+    FastNoiseLite noise;
+    noise.SetFrequency(0.04);
+    srand(time(NULL));
+    int seed = rand() % 1000 + 1;
+    noise.SetSeed(seed);
+
+    int equator = height / 2;
+    for (int h = 0; h < height; h++)
+    {
+        for (int w = 0; w < width; w++)
+        {
+            float elevation = tileMap.at(h).at(w).getElevation();
+            float n = noise.GetNoise((float)w, (float)h, elevation);
+            float temp = elevation + (n / 50);
+
+            tileMap.at(h).at(w).setTemperature(temp);
+        }
+    }
+}

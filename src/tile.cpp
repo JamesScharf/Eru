@@ -91,33 +91,34 @@ float Tile::getElevation()
  */
 void Tile::deriveGeologyClass()
 {
-    if (elev < 0.2)
+    if (elev < -0.7)
     {
         geoClass = GEO_OCEAN;
         setRepresentation(OCEAN_REPRESENTATION);
     }
-    if (elev >= 0.2 && elev < 0.3)
-    {
-        geoClass = GEO_RIVER;
-        setRepresentation(RIVER_REPRESENTATION);
-    }
-    if (elev >= 0.3 && elev < 0.6)
+    //if (elev >= -0.8 && elev < 0.)
+    //{
+    //    geoClass = GEO_RIVER;
+    //    setRepresentation(RIVER_REPRESENTATION);
+    //}
+    if (elev >= -0.7 && elev < 0.3)
     {
         geoClass = GEO_PLAINS;
         setRepresentation(PLAINS_REPRESENTATION);
     }
-    if (elev >= 0.6 && elev < 0.8)
+    if (elev >= 0.3 && elev < 0.7)
     {
         geoClass = GEO_HILLS;
         setRepresentation(HILLS_REPRESENTATION);
     }
-    if (elev >= 0.8 && elev < 0.95)
+    if (elev >= 0.7 && elev < 0.95)
     {
         geoClass = GEO_MOUNTAINS;
         setRepresentation(MOUNTAINS_REPRESENTATION);
     }
     if (elev >= 0.95)
     {
+        cout << "Yes" << endl;
         geoClass = GEO_EVEREST;
         setRepresentation(EVEREST_REPRESENTATION);
     }
@@ -142,35 +143,47 @@ int Tile::getGeologyClass()
 void Tile::setTemperature(float temperature)
 {
     temp = temperature;
-    if (temp <= 0.08)
+    if (temp > 0.90)
+    {
+        tempClass = TEMP_ICE;
+        setColor(ICE_COLOR);
+        return;
+    }
+    if (getGeologyClass() == GEO_OCEAN)
+    {
+        tempClass = TEMP_WATER;
+        setColor(WATER_COLOR);
+        return;
+    }
+    if (temp < -0.90)
     {
         tempClass = TEMP_DEATH_VALLEY;
         setColor(DEATH_VALLEY_COLOR);
+        return;
     }
-    if (temp > 0.08 && temp <= 0.2)
+    if (temp > -0.90 && temp <= -0.5)
     {
         tempClass = TEMP_DESSERT;
         setColor(DESSERT_COLOR);
+        return;
     }
-    if (temp > 0.2 && temp <= 0.7)
+    if (temp > -0.5 && temp <= 0.7)
     {
-        tempClass = TEMP_GRASSY;
-        setColor(GRASSY_COLOR);
+        tempClass = TEMP_FERTILE;
+        setColor(FERTILE_COLOR);
+        return;
     }
     if (temp > 0.7 && temp <= 0.85)
     {
         tempClass = TEMP_SNOW;
         setColor(SNOW_COLOR);
+        return;
     }
-    if (temp > 0.85 && temp <= 0.95)
+    if (temp > 0.85 && temp <= 0.98)
     {
         tempClass = TEMP_DEEP_SNOW;
         setColor(DEEP_SNOW_COLOR);
-    }
-    if (temp > 0.95)
-    {
-        tempClass = TEMP_ICE;
-        setColor(ICE_COLOR);
+        return;
     }
 }
 

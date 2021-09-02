@@ -35,7 +35,7 @@ using namespace std;
 #define WATER_COLOR BLUE
 #define DEATH_VALLEY_COLOR RED
 #define DESSERT_COLOR YELLOW
-#define GRASSY_COLOR GREEN
+#define FERTILE_COLOR GREEN
 #define SNOW_COLOR WHITE
 #define DEEP_SNOW_COLOR BOLD_WHITE
 #define ICE_COLOR CYAN
@@ -46,7 +46,7 @@ enum TEMPERATURE_CLASSES
     TEMP_WATER = 0,
     TEMP_DEATH_VALLEY = 1,
     TEMP_DESSERT = 2,
-    TEMP_GRASSY = 3,
+    TEMP_FERTILE = 3,
     TEMP_SNOW = 4,
     TEMP_DEEP_SNOW = 5,
     TEMP_ICE = 6
@@ -74,8 +74,6 @@ private:
     int geoClass;  // Geology classification
     int tempClass; // Temperature classification
 
-    // Given the elevation, derive the geological classification based on tile height; set appropriate char representation
-    void deriveGeologyClass();
     // Set the tile value we should use.
     void setRepresentation(string val);
     // Set the tile character color
@@ -105,6 +103,8 @@ public:
     int getGeologyClass();
     // Returns the temperature classification (see enum TEMPERATURE_CLASSES)
     int getTemperatureClass();
+    // Given the elevation, derive the geological classification based on tile height; set appropriate char representation
+    void deriveGeologyClass();
 };
 
 #endif

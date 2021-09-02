@@ -2,8 +2,12 @@
 #define MAP_H
 
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
+#include <cmath>
+#include <math.h>
 #include "tile.h"
-
+#include "FastNoiseLite.h"
 using namespace std;
 
 class Map
@@ -20,8 +24,10 @@ public:
     void setTile(int x, int y, Tile value);
     // Obtain the tile object here
     Tile getTileAt(int x, int y);
-    // Generate the map
-    void generateMap();
+    // Generate the height map
+    void generateHeightMap();
+    // Creates temperatures for a tile based on X, Y, Z
+    void generateTemperatureMap();
     //Gets the X size of the map
     int getWidth();
     // Gets the Y size of the map
